@@ -22,7 +22,8 @@ public class Tank implements Serializable {
     public Tank(Vector<Tank> tanks) {
         this.tanks = tanks;
     }
-    public void shot(){
+
+    public void shot() {
         Bullet bullet = null;
         //判断子弹方向创建子弹对象
         switch (getDirection()) {
@@ -46,10 +47,11 @@ public class Tank implements Serializable {
         //爆炸音效
         new AePlayWave("src/shot.wav").start();
     }
-    public boolean inBound(){
-        switch (direction){
+
+    public boolean inBound() {
+        switch (direction) {
             case 0:
-                if (getY() - 5 < 0){
+                if (getY() - 5 < 0) {
                     return false;
                 }
                 break;
@@ -59,19 +61,19 @@ public class Tank implements Serializable {
                 }
                 break;
             case 2:
-                if (getY() + 65 > 750){
+                if (getY() + 65 > 750) {
                     return false;
                 }
                 break;
             case 3:
-                if (getX() + 65 > 1000){
+                if (getX() + 65 > 1000) {
                     return false;
                 }
         }
         return true;
     }
 
-    public boolean isTouchBlocks(int length,int w) {
+    public boolean isTouchBlocks(int length, int w) {
         Block b;
         for (int i = 0; i < MyPanel.blocks.size(); i++) {
             b = MyPanel.blocks.get(i);
@@ -102,85 +104,78 @@ public class Tank implements Serializable {
                     break;
             }
         }
-            return true;
+        return true;
     }
-    public boolean isTouchTanks(){
+
+    public boolean isTouchTanks() {
         Tank tank;
         for (int i = 0; i < MyPanel.allTanks.size(); i++) {
             tank = MyPanel.allTanks.get(i);
-            if (this != tank){
-                switch (direction){
+            if (this != tank) {
+                switch (direction) {
                     case 0:
-                        switch (tank.direction){
+                        switch (tank.direction) {
                             case 0:
                             case 2:
-                                if ((x > tank.x && x < tank.x + 40 && y < tank.y + 60  && y > tank.y)
-                                        || (x + 40 > tank.x && x + 40 < tank.x + 40 && y < tank.y + 60  && y > tank.y))
-                                {
+                                if ((x > tank.x && x < tank.x + 40 && y < tank.y + 60 && y > tank.y)
+                                        || (x + 40 > tank.x && x + 40 < tank.x + 40 && y < tank.y + 60 && y > tank.y)) {
                                     return false;
                                 }
                                 break;
                             case 1:
                             case 3:
-                                if ((x > tank.x && x < tank.x + 60 && y < tank.y + 40  && y > tank.y)
-                                        || (x + 40 > tank.x && x + 40 < tank.x + 60 && y < tank.y + 40  && y > tank.y))
-                                {
+                                if ((x > tank.x && x < tank.x + 60 && y < tank.y + 40 && y > tank.y)
+                                        || (x + 40 > tank.x && x + 40 < tank.x + 60 && y < tank.y + 40 && y > tank.y)) {
                                     return false;
                                 }
                         }
                     case 1:
-                        switch (tank.direction){
+                        switch (tank.direction) {
                             case 0:
                             case 1:
-                                if ((x > tank.x && x < tank.x + 40 && y < tank.y + 60  && y > tank.y)
-                                        || (x > tank.x && x < tank.x + 40 && y + 40 < tank.y + 60  && y + 40 > tank.y))
-                                {
+                                if ((x > tank.x && x < tank.x + 40 && y < tank.y + 60 && y > tank.y)
+                                        || (x > tank.x && x < tank.x + 40 && y + 40 < tank.y + 60 && y + 40 > tank.y)) {
                                     return false;
                                 }
                                 break;
                             case 2:
                             case 3:
-                                if ((x > tank.x && x < tank.x + 60 && y < tank.y + 40  && y > tank.y)
-                                        || (x > tank.x && x < tank.x + 60 && y + 40 < tank.y + 40  && y + 40 > tank.y))
-                                {
+                                if ((x > tank.x && x < tank.x + 60 && y < tank.y + 40 && y > tank.y)
+                                        || (x > tank.x && x < tank.x + 60 && y + 40 < tank.y + 40 && y + 40 > tank.y)) {
                                     return false;
                                 }
                         }
                         break;
                     case 2:
-                        switch (tank.direction){
+                        switch (tank.direction) {
                             case 0:
                             case 1:
-                                if ((x > tank.x && x < tank.x + 40 && y + 60 < tank.y + 60  && y + 60 > tank.y)
-                                        || (x + 40 > tank.x && x + 40 < tank.x + 40 && y + 60 < tank.y + 60  && y + 60 > tank.y))
-                                {
+                                if ((x > tank.x && x < tank.x + 40 && y + 60 < tank.y + 60 && y + 60 > tank.y)
+                                        || (x + 40 > tank.x && x + 40 < tank.x + 40 && y + 60 < tank.y + 60 && y + 60 > tank.y)) {
                                     return false;
                                 }
                                 break;
                             case 2:
                             case 3:
-                                if ((x > tank.x && x < tank.x + 60 && y + 60 < tank.y + 40  && y + 60 > tank.y)
-                                        || (x + 40 > tank.x && x + 40 < tank.x + 60 && y + 60 < tank.y + 40  && y + 60> tank.y))
-                                {
+                                if ((x > tank.x && x < tank.x + 60 && y + 60 < tank.y + 40 && y + 60 > tank.y)
+                                        || (x + 40 > tank.x && x + 40 < tank.x + 60 && y + 60 < tank.y + 40 && y + 60 > tank.y)) {
                                     return false;
                                 }
                         }
                         break;
                     case 3:
-                        switch (tank.direction){
+                        switch (tank.direction) {
                             case 0:
                             case 1:
-                                if ((x + 60 > tank.x && x + 60 < tank.x + 40 && y < tank.y + 60  && y > tank.y)
-                                        || (x + 60 > tank.x && x + 60 < tank.x + 40 && y + 40 < tank.y + 60  && y + 40 > tank.y))
-                                {
+                                if ((x + 60 > tank.x && x + 60 < tank.x + 40 && y < tank.y + 60 && y > tank.y)
+                                        || (x + 60 > tank.x && x + 60 < tank.x + 40 && y + 40 < tank.y + 60 && y + 40 > tank.y)) {
                                     return false;
                                 }
                                 break;
                             case 2:
                             case 3:
-                                if ((x + 60 > tank.x && x + 60 < tank.x + 60 && y < tank.y + 40  && y > tank.y)
-                                        || (x + 60 > tank.x && x + 60 < tank.x + 60 && y + 40 < tank.y + 40  && y + 40 > tank.y))
-                                {
+                                if ((x + 60 > tank.x && x + 60 < tank.x + 60 && y < tank.y + 40 && y > tank.y)
+                                        || (x + 60 > tank.x && x + 60 < tank.x + 60 && y + 40 < tank.y + 40 && y + 40 > tank.y)) {
                                     return false;
                                 }
                         }
@@ -190,23 +185,27 @@ public class Tank implements Serializable {
         }
         return true;
     }
-    public void moveUp(){
+
+    public void moveUp() {
         if (inBound()) {
             y -= speed;
         }
     }
-    public void moveLeft(){
+
+    public void moveLeft() {
         if (inBound()) {
             x -= speed;
         }
     }
-    public void moveDown(){
+
+    public void moveDown() {
         if (inBound()) {
             y += speed;
         }
     }
-    public void moveRight(){
-        if  (inBound()) {
+
+    public void moveRight() {
+        if (inBound()) {
             x += speed;
         }
     }

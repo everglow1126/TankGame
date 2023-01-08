@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.Vector;
 
-public class MyPanel extends JPanel implements KeyListener,Runnable {
+public class MyPanel extends JPanel implements KeyListener, Runnable {
     protected static MyTank myTank = null; //我的坦克
     protected static Vector<EnemyTank> enemyTanks = new Vector<>(); //将敌方坦克存入集合
     protected static int enemyTanksNumber = 5; //初始化敌方坦克数量为5
@@ -27,7 +27,7 @@ public class MyPanel extends JPanel implements KeyListener,Runnable {
 
     public MyPanel() throws IOException, ClassNotFoundException {
         if (TankGame03.continue_ == -1) {
-            myTank = new MyTank(200, 250,7); //初始化我方坦克
+            myTank = new MyTank(200, 250, 7); //初始化我方坦克
             allTanks.add(myTank);
             //初始化敌方坦克，默认数量为5个
             for (int i = 0; i < enemyTanksNumber; i++) {
@@ -44,17 +44,17 @@ public class MyPanel extends JPanel implements KeyListener,Runnable {
         }
         //增加可击毁的方块
         for (int i = 0; i < breakableBlocksNum / 2; i++) {
-            blocks.add(new BreakableBlock(100 + (14 * i),100));
+            blocks.add(new BreakableBlock(100 + (14 * i), 100));
         }
         for (int i = 0; i < breakableBlocksNum / 2; i++) {
-            blocks.add(new BreakableBlock(100 + (14 * i),125));
+            blocks.add(new BreakableBlock(100 + (14 * i), 125));
         }
         //增加不可击毁的铁块
         for (int i = 0; i < ironBlocksNum / 2; i++) {
-            blocks.add(new IronBlock(100 + (22 * i),350));
+            blocks.add(new IronBlock(100 + (22 * i), 350));
         }
         for (int i = 0; i < ironBlocksNum / 2; i++) {
-            blocks.add(new IronBlock(100 + (22 * i),375));
+            blocks.add(new IronBlock(100 + (22 * i), 375));
         }
         //爆炸音效
         new AePlayWave("src/bgmusic.wav").start();
@@ -81,10 +81,10 @@ public class MyPanel extends JPanel implements KeyListener,Runnable {
                 g.fillRect(block.x, block.y, 20, 20);
             }
         }
-        drawTank(1010,40,g,0,1);//绘制记录用的坦克
+        drawTank(1010, 40, g, 0, 1);//绘制记录用的坦克
         g.setColor(Color.black);
-        g.drawString("您累积击毁敌方坦克",1000,20);//绘制记录数据
-        g.drawString(String.valueOf(Recorder.hitEnemyTank),1060,70);//绘制记录数据
+        g.drawString("您累积击毁敌方坦克", 1000, 20);//绘制记录数据
+        g.drawString(String.valueOf(Recorder.hitEnemyTank), 1060, 70);//绘制记录数据
         if (myTank.isLive) {
             drawTank(myTank.getX(), myTank.getY(), g, myTank.getDirection(), 0);//调用方法绘制我方坦克
         }
@@ -141,8 +141,9 @@ public class MyPanel extends JPanel implements KeyListener,Runnable {
             }
         }
     }
+
     //判定是否击中方块的方法
-    public void hitBlock(Vector<Bullet> bullets){
+    public void hitBlock(Vector<Bullet> bullets) {
         Vector<Block> blocks1 = blocks;
         //遍历子弹集合
         for (int i = 0; i < bullets.size(); i++) {
@@ -151,17 +152,18 @@ public class MyPanel extends JPanel implements KeyListener,Runnable {
                 Block bl = blocks1.get(j);
                 int x = bl.x;
                 int y = bl.y;
-                if (b.getX() > x && b.getX() < x + 12 && b.getY() < y + 20 && b.getY() > y){
+                if (b.getX() > x && b.getX() < x + 12 && b.getY() < y + 20 && b.getY() > y) {
                     b.isLive = false;
                     if (bl instanceof BreakableBlock) {//如果是可击毁的方块则isLive置为false
-                        ((BreakableBlock)bl).isLive = false;
+                        ((BreakableBlock) bl).isLive = false;
                     }
                 }
             }
         }
     }
+
     //子弹击中坦克的判定
-    public boolean hitTank(Vector<Bullet> bullets,EnemyTank enemyTank){
+    public boolean hitTank(Vector<Bullet> bullets, EnemyTank enemyTank) {
         //遍历我方坦克子弹集合
         for (int i = 0; i < bullets.size(); i++) {
             Bullet b = bullets.get(i);
@@ -195,12 +197,14 @@ public class MyPanel extends JPanel implements KeyListener,Runnable {
         }
         return false;
     }
+
     //我方击中敌方坦克的方法
-    public void hitEnemyTank(){
+    public void hitEnemyTank() {
         for (int i = 0; i < enemyTanks.size(); i++) {
-            hitTank(myTank.bullets,enemyTanks.get(i));
+            hitTank(myTank.bullets, enemyTanks.get(i));
         }
     }
+
     //编写方法，判断子弹是否击中我方坦克
     public void hitMyTank() {
         //遍历敌方坦克集合
@@ -238,17 +242,16 @@ public class MyPanel extends JPanel implements KeyListener,Runnable {
     }
 
     /**
-     *
-     * @param x 坦克的左上角横坐标
-     * @param y 坦克左上角纵坐标
-     * @param g 画笔
+     * @param x         坦克的左上角横坐标
+     * @param y         坦克左上角纵坐标
+     * @param g         画笔
      * @param direction 坦克的方向（上下左右）
-     * @param type 坦克的类型
+     * @param type      坦克的类型
      */
     //绘制坦克方法
-    public void drawTank(int x,int y,Graphics g,int direction,int type){
+    public void drawTank(int x, int y, Graphics g, int direction, int type) {
         //根据不同类型坦克设置不同颜色
-        switch (type){
+        switch (type) {
             case 0://0为我方坦克
                 g.setColor(Color.cyan);
                 break;
@@ -257,34 +260,34 @@ public class MyPanel extends JPanel implements KeyListener,Runnable {
                 break;
         }
         //根据坦克的方向绘制坦克
-        switch (direction){
+        switch (direction) {
             case 0: //0为坦克向上的方向
-                g.fill3DRect(x,y,10,60,false);//画出坦克左轮子
-                g.fill3DRect(x + 10,y + 10,20,40,false);//画出坦克身子
-                g.fill3DRect(x + 30,y,10,60,false);//画出坦克右轮子
-                g.fillOval(x + 10,y + 20,20,20);//画出坦克盖子
-                g.drawLine(x + 20,y + 30,x + 20,y - 5);//画出坦克炮筒
+                g.fill3DRect(x, y, 10, 60, false);//画出坦克左轮子
+                g.fill3DRect(x + 10, y + 10, 20, 40, false);//画出坦克身子
+                g.fill3DRect(x + 30, y, 10, 60, false);//画出坦克右轮子
+                g.fillOval(x + 10, y + 20, 20, 20);//画出坦克盖子
+                g.drawLine(x + 20, y + 30, x + 20, y - 5);//画出坦克炮筒
                 break;
             case 1: //1为坦克向左的方向
-                g.fill3DRect(x,y,60,10,false);//画出坦克上轮子
-                g.fill3DRect(x + 10,y + 10,40,20,false);//画出坦克身子
-                g.fill3DRect(x,y + 30,60,10,false);//画出坦克下轮子
-                g.fillOval(x + 20,y + 10,20,20);//画出坦克盖子
-                g.drawLine(x + 30,y + 20,x - 5,y + 20);//画出坦克炮筒
+                g.fill3DRect(x, y, 60, 10, false);//画出坦克上轮子
+                g.fill3DRect(x + 10, y + 10, 40, 20, false);//画出坦克身子
+                g.fill3DRect(x, y + 30, 60, 10, false);//画出坦克下轮子
+                g.fillOval(x + 20, y + 10, 20, 20);//画出坦克盖子
+                g.drawLine(x + 30, y + 20, x - 5, y + 20);//画出坦克炮筒
                 break;
             case 2: //2为坦克向下的方向
-                g.fill3DRect(x,y,10,60,false);//画出坦克左轮子
-                g.fill3DRect(x + 10,y + 10,20,40,false);//画出坦克身子
-                g.fill3DRect(x + 30,y,10,60,false);//画出坦克右轮子
-                g.fillOval(x + 10,y + 20,20,20);//画出坦克盖子
-                g.drawLine(x + 20,y + 30,x + 20,y + 65);//画出坦克炮筒
+                g.fill3DRect(x, y, 10, 60, false);//画出坦克左轮子
+                g.fill3DRect(x + 10, y + 10, 20, 40, false);//画出坦克身子
+                g.fill3DRect(x + 30, y, 10, 60, false);//画出坦克右轮子
+                g.fillOval(x + 10, y + 20, 20, 20);//画出坦克盖子
+                g.drawLine(x + 20, y + 30, x + 20, y + 65);//画出坦克炮筒
                 break;
             case 3: //3为坦克向右的方向
-                g.fill3DRect(x,y,60,10,false);//画出坦克上轮子
-                g.fill3DRect(x + 10,y + 10,40,20,false);//画出坦克身子
-                g.fill3DRect(x,y + 30,60,10,false);//画出坦克下轮子
-                g.fillOval(x + 20,y + 10,20,20);//画出坦克盖子
-                g.drawLine(x + 30,y + 20,x + 65,y + 20);//画出坦克炮筒
+                g.fill3DRect(x, y, 60, 10, false);//画出坦克上轮子
+                g.fill3DRect(x + 10, y + 10, 40, 20, false);//画出坦克身子
+                g.fill3DRect(x, y + 30, 60, 10, false);//画出坦克下轮子
+                g.fillOval(x + 20, y + 10, 20, 20);//画出坦克盖子
+                g.drawLine(x + 30, y + 20, x + 65, y + 20);//画出坦克炮筒
         }
     }
 
@@ -296,29 +299,29 @@ public class MyPanel extends JPanel implements KeyListener,Runnable {
     @Override
     public void keyPressed(KeyEvent e) {
         //根据wasd从而操控坦克移动
-        if (e.getKeyCode() == KeyEvent.VK_W){
-                myTank.setDirection(0);
-                if (myTank.isTouchTanks() && myTank.isTouchBlocks(12,20)) {
-                    myTank.moveUp();
-                }
+        if (e.getKeyCode() == KeyEvent.VK_W) {
+            myTank.setDirection(0);
+            if (myTank.isTouchTanks() && myTank.isTouchBlocks(12, 20)) {
+                myTank.moveUp();
+            }
         }
-        if (e.getKeyCode() == KeyEvent.VK_A){
-                myTank.setDirection(1);
-                if (myTank.isTouchTanks() && myTank.isTouchBlocks(12,20)) {
-                    myTank.moveLeft();
-                }
+        if (e.getKeyCode() == KeyEvent.VK_A) {
+            myTank.setDirection(1);
+            if (myTank.isTouchTanks() && myTank.isTouchBlocks(12, 20)) {
+                myTank.moveLeft();
+            }
         }
-        if (e.getKeyCode() == KeyEvent.VK_S){
-                myTank.setDirection(2);
-                if (myTank.isTouchTanks() && myTank.isTouchBlocks(12,20)) {
-                    myTank.moveDown();
-                }
+        if (e.getKeyCode() == KeyEvent.VK_S) {
+            myTank.setDirection(2);
+            if (myTank.isTouchTanks() && myTank.isTouchBlocks(12, 20)) {
+                myTank.moveDown();
+            }
         }
-        if (e.getKeyCode() == KeyEvent.VK_D){
-                myTank.setDirection(3);
-                if (myTank.isTouchTanks() && myTank.isTouchBlocks(12,20) ){
-                    myTank.moveRight();
-                }
+        if (e.getKeyCode() == KeyEvent.VK_D) {
+            myTank.setDirection(3);
+            if (myTank.isTouchTanks() && myTank.isTouchBlocks(12, 20)) {
+                myTank.moveRight();
+            }
         }
         //按J发射子弹
         if (e.getKeyCode() == KeyEvent.VK_F) {
@@ -337,7 +340,7 @@ public class MyPanel extends JPanel implements KeyListener,Runnable {
 
     @Override
     public void run() {
-        while (true){
+        while (true) {
             try {
                 //每隔100ms就绘制重新绘制一次
                 Thread.sleep(100);

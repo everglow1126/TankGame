@@ -10,6 +10,7 @@ public class Recorder {
     public static FileInputStream fis = null;
     public static ObjectInputStream ois = null;
     public static int leftEnemyTank = 0;//上局剩余坦克数量
+
     //把本局游戏的所有记录存盘的方法
     public static void record() throws IOException {
         fos = new FileOutputStream("/Users/everglow/Desktop/TankGame.dot");
@@ -24,6 +25,7 @@ public class Recorder {
         oos.writeObject(MyPanel.myTank);//我方坦克的信息通过对象流存储到文件
         oos.close();
     }
+
     //读取上局游戏的所有信息
     public static void readRecord() throws IOException, ClassNotFoundException {
         fis = new FileInputStream("/Users/everglow/Desktop/TankGame.dot");
@@ -32,16 +34,17 @@ public class Recorder {
         hitEnemyTank = ois.readInt();
         Tank tank = null;
         for (int i = 0; i < MyPanel.enemyTanksNumber; i++) {
-            tank = (EnemyTank)ois.readObject();
+            tank = (EnemyTank) ois.readObject();
             MyPanel.enemyTanks.add((EnemyTank) tank);
-            MyPanel.allTanks.add((EnemyTank)tank);
+            MyPanel.allTanks.add((EnemyTank) tank);
         }
         tank = (MyTank) ois.readObject();
         MyPanel.myTank = (MyTank) tank;
-        MyPanel.allTanks.add((MyTank)tank);
+        MyPanel.allTanks.add((MyTank) tank);
     }
+
     //记录击中敌方坦克的数量
-    public static void setHitEnemyTank(){
+    public static void setHitEnemyTank() {
         hitEnemyTank++;
     }
 }

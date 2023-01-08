@@ -10,7 +10,7 @@ class Bullet implements Runnable, Serializable {
     private int speed = 6; //子弹速度
     private int direction;//子弹方向
 
-    public Bullet(int x, int y,int direction) {
+    public Bullet(int x, int y, int direction) {
         this.x = x;
         this.y = y;
         this.direction = direction;
@@ -32,10 +32,11 @@ class Bullet implements Runnable, Serializable {
     public void setY(int y) {
         this.y = y;
     }
+
     //子弹射击的线程
     @Override
     public void run() {
-        while (true){
+        while (true) {
             try {
                 //休眠50ms
                 Thread.sleep(50);
@@ -43,22 +44,22 @@ class Bullet implements Runnable, Serializable {
                 throw new RuntimeException(e);
             }
             //根据子弹方向移动
-            switch (direction){
+            switch (direction) {
                 case 0:
-                    y-=speed;
+                    y -= speed;
                     break;
                 case 1:
-                    x-=speed;
+                    x -= speed;
                     break;
                 case 2:
-                    y+=speed;
+                    y += speed;
                     break;
                 case 3:
-                    x+=speed;
+                    x += speed;
                     break;
             }
             //判断子弹是否走出边界，子弹生命已结束
-            if (!(x <= 1000 && x >= 0 && y <= 750 && y >= 0 && isLive)){
+            if (!(x <= 1000 && x >= 0 && y <= 750 && y >= 0 && isLive)) {
                 isLive = false;
                 break;
             }

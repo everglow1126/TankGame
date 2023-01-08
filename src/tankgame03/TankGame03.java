@@ -16,6 +16,7 @@ public class TankGame03 extends JFrame implements KeyListener {
     //面板属性默认为空
     MyPanel myPanel = null;
     static int continue_ = 0;
+
     public static void main(String[] args) throws IOException, ClassNotFoundException {
 
 
@@ -26,9 +27,9 @@ public class TankGame03 extends JFrame implements KeyListener {
         System.out.println("请输入选择 ：1.新游戏    2.继续上局游戏");
         Scanner scanner = new Scanner(System.in);
         int choice = scanner.nextInt();
-        if (choice == 1){
+        if (choice == 1) {
             continue_ = -1;
-        }else {
+        } else {
             continue_ = 1;
         }
         myPanel = new MyPanel();//创建面板
@@ -36,7 +37,7 @@ public class TankGame03 extends JFrame implements KeyListener {
         thread.start();
         add(myPanel);//加入面板(游戏的绘图区域)到窗口
         addKeyListener(myPanel);
-        setSize(1200,750);
+        setSize(1200, 750);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         this.addWindowListener(new WindowAdapter() {
@@ -58,10 +59,10 @@ public class TankGame03 extends JFrame implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_C){
+        if (e.getKeyCode() == KeyEvent.VK_C) {
             continue_ = 1;
         }
-        if (e.getKeyCode() == KeyEvent.VK_N){
+        if (e.getKeyCode() == KeyEvent.VK_N) {
             continue_ = -1;
         }
     }
